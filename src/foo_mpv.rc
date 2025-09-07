@@ -1,0 +1,332 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MPV_PREFS DIALOGEX 0, 0, 446, 420
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "Custom background color:",IDC_STATIC,7,113,94,12
+    EDITTEXT        IDC_EDIT_POPUP,7,41,313,13,ES_AUTOHSCROLL
+    LTEXT           "Window and OSC title format:",IDC_STATIC,7,28,313,8
+    CONTROL         "Use black when fullscreen",IDC_CHECK_FSBG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,131,150,10
+    CONTROL         "Stop video playback when not visible",IDC_CHECK_STOP,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,95,162,10
+    CONTROL         "",IDC_BUTTON_BG,"Button",BS_OWNERDRAW | BS_BITMAP | BS_FLAT | WS_TABSTOP,117,110,38,15,WS_EX_STATICEDGE
+    LTEXT           "Move video to greatest panel:",IDC_STATIC,179,98,126,8
+    CONTROL         "Display artwork in video window",IDC_CHECK_ARTWORK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,145,150,10
+    COMBOBOX        IDC_COMBO_PANELMETRIC,179,110,108,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Video player",IDC_STATIC_SECTION1,7,8,313,16
+    CONTROL         "High quality GPU renderer (gpu-hq)",IDC_CHECK_GPUHQ,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,201,166,10
+    CONTROL         "Hardware decoding",IDC_CHECK_HWDEC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,215,141,10
+    CONTROL         "Low-latency profile",IDC_CHECK_LATENCY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,231,116,10
+    LTEXT           "May help mpv synchronize faster on playback start, but can cause playback problems",IDC_STATIC,7,242,133,31
+    CONTROL         "Automatic deinterlacing (bwdif)",IDC_CHECK_DEINT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,187,166,10
+    LTEXT           "Settings in mpv.conf take precedence over options configured here.",IDC_STATIC,7,169,313,8
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,181,217,139,56
+    EDITTEXT        IDC_EDIT_VIDEO_PATTERN,7,74,313,13,ES_AUTOHSCROLL
+    CONTROL         "Only play files matching pattern:",IDC_CHECK_VIDEO_FILTER,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,60,120,10
+    LTEXT           "Libraries:",IDC_STATIC,181,205,30,8
+END
+
+IDD_THUMBCHOOSER DIALOGEX 0, 0, 371, 211
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,257,190,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,314,190,50,14
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,189,235,15
+    CONTROL         "",IDC_STATIC_pic,"Static",SS_BLACKFRAME,7,7,357,177
+END
+
+IDD_MPV_PREFS1 DIALOGEX 0, 0, 446, 420
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    CONTROL         "Enable thumbnails",IDC_CHECK_THUMBNAILS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,30,155,10
+    LTEXT           "Maximum cache size:",IDC_STATIC,7,196,137,8
+    LTEXT           "Thumbnail size:",IDC_STATIC,188,78,78,8
+    LTEXT           "Thumbnail format:",IDC_STATIC,7,229,136,10
+    COMBOBOX        IDC_COMBO_THUMBSIZE,188,90,102,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_CACHESIZE,7,207,106,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Use first item in group",IDC_RADIO_FIRSTINGROUP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,7,81,165,11
+    CONTROL         "Use longest item in group",IDC_RADIO_LONGESTINGROUP,
+                    "Button",BS_AUTORADIOBUTTON,7,96,168,11
+    CONTROL         "Attempt to choose interesting video frame (slow)",IDC_CHECK_HISTOGRAM,
+                    "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,7,134,131,20
+    CONTROL         "",IDC_SLIDER_SEEK,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,151,148,139,15
+    LTEXT           "Cover type to provide:",IDC_STATIC,188,23,86,8
+    COMBOBOX        IDC_COMBO_COVERTYPE,188,35,102,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Use any custom thumbnail from group",IDC_CHECK_GROUPOVERRIDE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,112,163,10
+    LTEXT           "Thumbnail seek position:",IDC_STATIC,151,134,137,8
+    CONTROL         "Only process files matching:",IDC_CHECK_FILTER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,45,172,10
+    EDITTEXT        IDC_EDIT_PATTERN,7,58,313,13,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO_FORMAT,7,240,106,13,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Thumbnailer",IDC_STATIC_SECTION4,7,8,313,16
+    LTEXT           "Cache",IDC_STATIC_SECTION3,7,174,313,17
+    LTEXT           "Thumbnails are cached in the file thumbcache.db in the foobar2000 profile directory.",IDC_STATIC,141,198,135,30
+END
+
+IDD_MPV_PREFS2 DIALOGEX 0, 0, 446, 420
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    CONTROL         "Enable",IDC_CHECK_OSC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,28,110,10
+    LTEXT           "On-screen control",IDC_STATIC_SECTION2,7,8,313,16
+    LTEXT           "Layout:",IDC_STATIC,7,45,26,8
+    COMBOBOX        IDC_COMBO_OSC_LAYOUT,7,57,110,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Seekbar style:",IDC_STATIC,144,45,47,8
+    COMBOBOX        IDC_COMBO_OSC_SEEKBARSTYLE,144,57,110,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Deadzone:",IDC_STATIC,7,179,36,8
+    LTEXT           "Window/panel scale %:",IDC_STATIC,7,102,76,8
+    CONTROL         "",IDC_SLIDER_OSC_SCALE_WINDOW,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,87,99,167,15
+    LTEXT           "Fullscreen scale %:",IDC_STATIC,7,121,63,8
+    CONTROL         "",IDC_SLIDER_OSC_SCALE_FULLSCREEN,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,87,118,167,15
+    CONTROL         "",IDC_SLIDER_OSC_DEADZONE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,87,176,167,15
+    LTEXT           "Fade duration (ms):",IDC_STATIC,7,140,64,8
+    CONTROL         "",IDC_SLIDER_OSC_FADE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,87,137,167,15
+    LTEXT           "Timeout (ms):",IDC_STATIC,7,226,45,8
+    CONTROL         "",IDC_SLIDER_OSC_TIMEOUT,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,87,223,167,15
+    CONTROL         "Scale with video",IDC_CHECK_OSC_SCALEWITHVIDEO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,81,67,10
+    LTEXT           "Transparency:",IDC_STATIC,7,159,48,8
+    CONTROL         "",IDC_SLIDER_OSC_TRANSPARENCY,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_TOOLTIPS | WS_TABSTOP,87,156,167,15
+    LTEXT           "Size of the deadzone as percent of window height not used by the OSC. Movement there won't make the OSC show up and it will hide immediately if the mouse enters it.",IDC_STATIC,7,196,313,20
+    LTEXT           "Duration in ms until the OSC hides if no mouse movement.",IDC_STATIC,7,244,313,13
+END
+
+IDD_MPV_PREFS3 DIALOGEX 0, 0, 446, 420
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "mpv.conf",IDC_STATIC_SECTION10,7,8,313,16
+    EDITTEXT        IDC_EDIT1,7,45,313,228,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "Note: setting any of the following options will result in broken behaviour: ""audio"", ""video-sync"", ""idle"", ""keep-open"", ""keep-open-pause"", ""cache-pause""",IDC_STATIC,7,23,313,21
+    PUSHBUTTON      "?",IDC_BUTTON_CONFHELP,305,7,15,14
+END
+
+IDD_MPV_PREFS4 DIALOGEX 0, 0, 446, 420
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LTEXT           "input.conf",IDC_STATIC_SECTION11,7,8,248,16
+    EDITTEXT        IDC_EDIT2,7,43,313,230,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    PUSHBUTTON      "?",IDC_BUTTON_INPUTHELP,305,7,15,14
+    PUSHBUTTON      "Insert context command",IDC_BUTTON_INSERT_CONTEXT,228,26,92,14
+    PUSHBUTTON      "Insert menu command",IDC_BUTTON_INSERT_MENU,133,26,85,14
+END
+
+IDD_DIALOG_MENUCHOOSER DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,155,50,14
+    CONTROL         "",IDC_LIST_MENU,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,295,144
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MPV_PREFS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 273
+        HORZGUIDE, 7
+        HORZGUIDE, 26
+    END
+
+    IDD_THUMBCHOOSER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 364
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 204
+    END
+
+    IDD_MPV_PREFS1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 273
+    END
+
+    IDD_MPV_PREFS2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        VERTGUIDE, 254
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 273
+    END
+
+    IDD_MPV_PREFS3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 273
+        HORZGUIDE, 7
+        HORZGUIDE, 26
+    END
+
+    IDD_MPV_PREFS4, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 273
+        HORZGUIDE, 7
+        HORZGUIDE, 26
+    END
+
+    IDD_DIALOG_MENUCHOOSER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_MPV_PREFS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_THUMBCHOOSER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MPV_PREFS1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MPV_PREFS2 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MPV_PREFS3 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MPV_PREFS4 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_MENUCHOOSER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_SCROLL              ICON                    "IDI_SCROLL.ico"
+
+IDI_ICON1               ICON                    "video.ico"
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United Kingdom) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (United Kingdom) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
