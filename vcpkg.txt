@@ -1,0 +1,2 @@
+vcpkg install ffmpeg[avcodec,avfilter,avformat,zlib,vpx,swscale,dav1d] nlohmann-json sqlitecpp wtl --triplet x64-mpv --overlay-triplets=triplets
+vcpkg install ffmpeg[avcodec,avfilter,avformat,zlib,vpx,swscale,dav1d] nlohmann-json sqlitecpp wtl --triplet x86-mpv --overlay-triplets=triplets
