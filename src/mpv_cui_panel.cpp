@@ -1,13 +1,10 @@
 #include "stdafx.h"
-// PCH ^
 
-#include <../helpers/BumpableElem.h>
 #include <commctrl.h>
 #include <windows.h>
 #include <windowsx.h>
 
 #include "../columns_ui-sdk/ui_extension.h"
-#include "../foobar2000/SDK/foobar2000.h"
 #include "mpv_container.h"
 #include "mpv_player.h"
 #include "resource.h"
@@ -113,7 +110,7 @@ struct CMpvCuiWindow : public mpv_container, CWindowImpl<CMpvCuiWindow> {
   bool osc_enabled = true;
 };
 
-class MpvCuiWindow : public uie::container_ui_extension {
+class MpvCuiWindow : public uie::container_uie_window_v3 {
  public:
   const GUID& get_extension_guid() const override {
     return g_guid_mpv_cui_panel;
@@ -141,17 +138,19 @@ class MpvCuiWindow : public uie::container_ui_extension {
     p_writer->write(&osc_enabled, sizeof(bool), p_abort);
   }
 
+  LRESULT on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) override;
+
+  uie::container_window_v3_config get_window_config() final
+  {
+      return { L"mpv_window_class_cui", false };
+  }
+
  private:
   bool cfg_pinned = false;
   bool cfg_osc_enabled = true;
-  class_data& get_class_data() const override {
-    __implement_get_class_data(_T("{EF25F318-A1F7-46CB-A86E-70F568ADDCE6}"),
-                               false);
-  }
 
-  LRESULT on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) override;
 
-  CWindowAutoLifetime<mpv::CMpvCuiWindow>* wnd_child = NULL;
+  CWindowAutoLifetime<mpv::CMpvCuiWindow>* wnd_child{};
 };
 
 LRESULT MpvCuiWindow::on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) {
@@ -164,7 +163,7 @@ LRESULT MpvCuiWindow::on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) {
       wnd_child->set_osc_enabled(cfg_osc_enabled);
       break;
     case WM_SHOWWINDOW:
-      wnd_child->ShowWindow(wp);
+      wnd_child->ShowWindow(wp == TRUE ? SW_SHOW : SW_HIDE);
       break;
     case WM_SIZE:
       wnd_child->SetWindowPos(0, 0, 0, LOWORD(lp), HIWORD(lp), SWP_NOZORDER);

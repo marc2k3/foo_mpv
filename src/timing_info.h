@@ -1,7 +1,4 @@
 #pragma once
-#include "stdafx.h"
-// PCH ^
-#include <atomic>
 
 namespace timing_info {
 struct timing_info {

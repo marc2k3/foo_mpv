@@ -1,7 +1,4 @@
 #pragma once
-#include "stdafx.h"
-// PCH ^
-
 #include "libmpv.h"
 
 namespace mpv {

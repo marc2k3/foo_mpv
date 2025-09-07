@@ -1,8 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <sstream>
-
 #include "libmpv.h"
 
 namespace libmpv {

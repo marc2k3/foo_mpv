@@ -1,9 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <../helpers/BumpableElem.h>
-
-#include <sstream>
 
 #include "menu_utils.h"
 #include "mpv_container.h"

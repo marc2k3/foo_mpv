@@ -1,8 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <atomic>
-#include <mutex>
 
 #include "artwork_protocol.h"
 #include "libmpv.h"
@@ -14,7 +10,7 @@ extern cfg_bool cfg_artwork;
 extern advconfig_checkbox_factory cfg_logging;
 
 struct artwork_request {
-  artwork_request(metadb_handle_list_cref p_items, long newid)
+  artwork_request(metadb_handle_list_cref p_items, LONG_PTR newid)
       : items(p_items), art_data(), cursor(0), loaded(false), id(newid) {
     if (cfg_logging) {
       FB2K_console_formatter() << "mpv: Artwork request " << newid;
@@ -24,7 +20,7 @@ struct artwork_request {
   album_art_data_ptr art_data = NULL;
   bool loaded;
   size_t cursor;
-  long id;
+  LONG_PTR id;
 };
 
 static std::unique_ptr<artwork_request> g_request;
@@ -58,7 +54,7 @@ void reload_artwork() {
     std::lock_guard<std::mutex> lock(mutex);
     if (g_request) {
       abort_loading.abort();
-      long id = g_request ? g_request->id + 1 : 0;
+      LONG_PTR id = g_request ? g_request->id + 1 : 0;
       g_request.reset(new artwork_request(g_request->items, id));
     }
   }
@@ -72,7 +68,7 @@ void request_artwork() {
     abort_loading.abort();
     metadb_handle_list selection;
     ui_selection_manager::get()->get_selection(selection);
-    long id = g_request ? g_request->id + 1 : 0;
+    LONG_PTR id = g_request ? g_request->id + 1 : 0;
     g_request.reset(new artwork_request(selection, id));
   }
 
@@ -83,7 +79,7 @@ void request_artwork(metadb_handle_list_cref p_items) {
   {
     std::lock_guard<std::mutex> lock(mutex);
     abort_loading.abort();
-    long id = g_request ? g_request->id + 1 : 0;
+    LONG_PTR id = g_request ? g_request->id + 1 : 0;
     g_request.reset(new artwork_request(p_items, id));
   }
 
@@ -114,7 +110,7 @@ class artwork_register : public initquit {
           mpv_player::on_new_artwork();
         } else {
           metadb_handle_list req_items(g_request->items);
-          unsigned req_id = g_request->id;
+          LONG_PTR req_id = g_request->id;
           lock.unlock();
 
           album_art_data_ptr result;
@@ -191,10 +187,10 @@ static initquit_factory_t<artwork_register> g_np_register;
 
 static int64_t artworkreader_size(void* cookie) {
   std::lock_guard<std::mutex> lock(mutex);
-  if (!g_request || (long)cookie != g_request->id) {
+  if (!g_request || (LONG_PTR)cookie != g_request->id) {
     if (cfg_logging) {
       FB2K_console_formatter()
-          << "mpv: Stale artwork reference [size, " << (long)cookie << "]";
+          << "mpv: Stale artwork reference [size, " << (LONG_PTR)cookie << "]";
     }
     return libmpv::MPV_ERROR_GENERIC;
   }
@@ -206,10 +202,10 @@ static int64_t artworkreader_size(void* cookie) {
 
 static int64_t artworkreader_read(void* cookie, char* buf, uint64_t nbytes) {
   std::lock_guard<std::mutex> lock(mutex);
-  if (!g_request || (long)cookie != g_request->id) {
+  if (!g_request || (LONG_PTR)cookie != g_request->id) {
     if (cfg_logging) {
       FB2K_console_formatter()
-          << "mpv: Stale artwork reference [read, " << (long)cookie << "]";
+          << "mpv: Stale artwork reference [read, " << (LONG_PTR)cookie << "]";
     }
     return libmpv::MPV_ERROR_GENERIC;
   }
@@ -227,17 +223,17 @@ static int64_t artworkreader_read(void* cookie, char* buf, uint64_t nbytes) {
 
 static int64_t artworkreader_seek(void* cookie, int64_t offset) {
   std::lock_guard<std::mutex> lock(mutex);
-  if (!g_request || (long)cookie != g_request->id) {
+  if (!g_request || (LONG_PTR)cookie != g_request->id) {
     if (cfg_logging) {
       FB2K_console_formatter()
-          << "mpv: Stale artwork reference [size, " << (long)cookie << "]";
+          << "mpv: Stale artwork reference [size, " << (LONG_PTR)cookie << "]";
     }
     return libmpv::MPV_ERROR_GENERIC;
   }
   if (g_request->art_data.is_empty()) {
     return libmpv::MPV_ERROR_GENERIC;
   }
-  if (offset < 0 || offset > g_request->art_data->get_size()) {
+  if (offset < 0 || offset > static_cast<int64_t>(g_request->art_data->get_size())) {
     return libmpv::MPV_ERROR_UNSUPPORTED;
   }
   g_request->cursor = (t_size)offset;

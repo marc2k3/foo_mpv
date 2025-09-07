@@ -1,9 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <../helpers/atl-misc.h>
-
-#include <sstream>
 
 #include "mpv_container.h"
 #include "mpv_player.h"
@@ -63,8 +58,7 @@ struct CMpvFullscreenWindow : public CWindowImpl<CMpvFullscreenWindow>,
   bool is_osc_enabled() override { return true; }
 
   LRESULT on_create(LPCREATESTRUCT st) {
-    SetClassLong(get_wnd(), GCL_HICON,
-                 (LONG)ui_control::get()->get_main_icon());
+    SetIcon(ui_control::get()->get_main_icon());
 
     update_title();
 

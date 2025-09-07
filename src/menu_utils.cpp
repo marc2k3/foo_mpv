@@ -1,6 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
 #include "columns_ui-sdk/ui_extension.h"
 #include "menu_utils.h"
 
@@ -46,11 +44,11 @@ menu_node_popup::menu_node_popup(pfc::string8 text, std::vector<ui_extension::me
     : m_text(text), m_description(), m_items(children){};
 menu_node_popup::menu_node_popup(pfc::string8 text, pfc::string8 description, std::vector<ui_extension::menu_node_ptr> children)
     : m_text(text), m_description(description), m_items(children){};
-void menu_node_popup::get_child(unsigned p_index,
+void menu_node_popup::get_child(size_t p_index,
                                 uie::menu_node_ptr& p_out) const {
   p_out = m_items[p_index].get_ptr();
 }
-unsigned menu_node_popup::get_children_count() const { return m_items.size(); }
+size_t menu_node_popup::get_children_count() const { return m_items.size(); }
 bool menu_node_popup::get_description(pfc::string_base& p_out) const {
   if (m_description.is_empty()) {
     return false;
@@ -90,9 +88,9 @@ static bool get_context_items_r(GUID guid, std::vector<menu_entry>& things,
     if (!name.is_empty()) name_parts.emplace_back(name);
 
     if (p_node->get_type() == contextmenu_item_node::TYPE_POPUP) {
-      const unsigned child_count = p_node->get_children_count();
+      const auto child_count = p_node->get_children_count();
 
-      for (unsigned child = 0; child < child_count; child++) {
+      for (size_t child = 0; child < child_count; child++) {
         contextmenu_item_node* p_child = p_node->get_child(child);
         get_context_items_r(guid, things, name_parts, p_child, false);
       }
@@ -165,7 +163,7 @@ std::vector<menu_entry> get_contextmenu_items() {
       GUID parent = ptr->get_parent_();
       contextmenu_group::ptr group;
       while (parent != contextmenu_groups::root) {
-        for (auto e = FB2K_ENUMERATE(contextmenu_group); !e.finished(); ++e) {
+        for (auto e = service_enum_t<contextmenu_group>(); !e.finished(); ++e) {
           auto srv = *e;
           if (srv->get_guid() == parent) {
             group = srv;
@@ -222,7 +220,7 @@ std::vector<menu_entry> get_mainmenu_items() {
       while (parent != pfc::guid_null) {
         pfc::string8 parentname;
 
-        for (auto e = FB2K_ENUMERATE(mainmenu_group); !e.finished(); ++e) {
+        for (auto e = service_enum_t<mainmenu_group>(); !e.finished(); ++e) {
           auto srv = *e;
           if (srv->get_guid() == parent) {
             group = srv;

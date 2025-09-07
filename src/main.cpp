@@ -1,10 +1,6 @@
 #include "stdafx.h"
-// PCH ^
 
-#define VERSION_NO "0.0.0 alpha 0"
-
-#include "acfu-sdk/acfu_github.h"
-#include "acfu-sdk/utils/common.h"
+#define VERSION_NO "0.6.11-beta"
 
 const char* about =
     "Copyright (c) sammoth, 2020\n"
@@ -95,33 +91,3 @@ const char* about =
 
 DECLARE_COMPONENT_VERSION("mpv Video", VERSION_NO, about);
 VALIDATE_COMPONENT_FILENAME("foo_mpv.dll");
-
-namespace {
-class FooMpvSource : public acfu::source, public qwr::acfu::github_conf {
- public:
-  const char* my_version() const { return VERSION_NO; }
-  virtual GUID get_guid() {
-    static const GUID guid = {0x63f5b5d7,
-                              0x3747,
-                              0x449f,
-                              {0xaa, 0xad, 0x9f, 0xa5, 0x38, 0x5, 0x22, 0xce}};
-
-    return guid;
-  }
-  virtual void get_info(file_info& info) {
-    info.meta_set("version", my_version());
-    info.meta_set("name", "mpv Video");
-    info.meta_set("module", "foo_mpv");
-  }
-  virtual bool is_newer(const file_info& info) {
-    const char* version = info.meta_get("version", 0);
-    return acfu::is_newer(version, my_version());
-  }
-  virtual acfu::request::ptr create_request() {
-    return new service_impl_t<qwr::acfu::github_latest_release<FooMpvSource>>();
-  }
-  static pfc::string8 get_owner() { return "sammoth"; }
-  static pfc::string8 get_repo() { return "foo_mpv"; }
-};
-static service_factory_t<FooMpvSource> g_mpv_source;
-}  // namespace

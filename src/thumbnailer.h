@@ -1,8 +1,4 @@
 #pragma once
-#include "stdafx.h"
-// PCH ^
-
-#include "../SDK/foobar2000.h"
 
 extern "C" {
 #include "libavcodec/avcodec.h"

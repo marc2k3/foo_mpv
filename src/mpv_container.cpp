@@ -1,7 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <algorithm>
 
 #include "columns_ui-sdk/ui_extension.h"
 #include "mpv_container.h"

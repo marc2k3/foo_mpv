@@ -1,5 +1,3 @@
-#include "stdafx.h"
-// PCH ^
 #pragma once
 #include "../columns_ui-sdk/ui_extension.h"
 
@@ -54,8 +52,8 @@ class menu_node_popup : public uie::menu_node_popup_t {
   menu_node_popup(pfc::string8 text,
                   std::vector<ui_extension::menu_node_ptr> children);
 
-  void get_child(unsigned p_index, uie::menu_node_ptr& p_out) const;
-  unsigned get_children_count() const;
+  void get_child(size_t p_index, uie::menu_node_ptr& p_out) const;
+  size_t get_children_count() const;
   bool get_description(pfc::string_base& p_out) const;
   bool get_display_data(pfc::string_base& p_out,
                         unsigned& p_displayflags) const;

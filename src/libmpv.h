@@ -1,6 +1,4 @@
 #pragma once
-#include "stdafx.h"
-// PCH ^
 
 /* Copyright (C) 2017 the mpv developers
  *

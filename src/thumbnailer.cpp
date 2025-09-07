@@ -1,13 +1,7 @@
-#pragma once
 #include "stdafx.h"
-// PCH ^
 
 #include <SQLiteCpp/SQLiteCpp.h>
 #include <sqlite3.h>
-
-#include <atomic>
-#include <mutex>
-#include <sstream>
 
 extern "C" {
 #include <libavcodec/avcodec.h>
@@ -357,8 +351,9 @@ void thumbnailer::load_stream() {
         p_format_context->streams[i]->codecpar;
 
     if (local_codec_params->codec_type == AVMEDIA_TYPE_VIDEO) {
-      codec = avcodec_find_decoder(local_codec_params->codec_id);
-      if (codec == NULL) continue;
+      codec = const_cast<AVCodec*>(avcodec_find_decoder(local_codec_params->codec_id));
+      if (codec == NULL)
+          continue;
 
       stream_index = i;
       params = local_codec_params;
@@ -383,14 +378,14 @@ void thumbnailer::load_stream() {
   output_frame = av_frame_alloc();
   if (cfg_thumb_cache_format == 0) {
     output_frame->format = AV_PIX_FMT_YUVJ444P;
-    output_encoder = avcodec_find_encoder(AV_CODEC_ID_MJPEG);
+    output_encoder = const_cast<AVCodec*>(avcodec_find_encoder(AV_CODEC_ID_MJPEG));
     output_codeccontext = avcodec_alloc_context3(output_encoder);
     output_codeccontext->flags |= AV_CODEC_FLAG_QSCALE;
     output_codeccontext->global_quality = FF_QP2LAMBDA;
     output_frame->quality = output_codeccontext->global_quality;
   } else if (cfg_thumb_cache_format == 1) {
     output_frame->format = AV_PIX_FMT_RGB24;
-    output_encoder = avcodec_find_encoder(AV_CODEC_ID_PNG);
+    output_encoder = const_cast<AVCodec*>(avcodec_find_encoder(AV_CODEC_ID_PNG));
     output_codeccontext = avcodec_alloc_context3(output_encoder);
   } else {
     FB2K_console_formatter()
@@ -812,7 +807,7 @@ class thumbnail_extractor : public album_art_extractor_instance_v2 {
           query_put->reset();
           query_put->bind(1, metadb->get_path());
           query_put->bind(2, metadb->get_subsong_index());
-          query_put->bind(3, data->get_ptr(), data->get_size());
+          query_put->bind(3, data->get_ptr(), static_cast<int>(data->get_size()));
           query_put->exec();
         }
 
@@ -856,14 +851,9 @@ class thumbnail_extractor : public album_art_extractor_instance_v2 {
     album_art_data_ptr ret = cache_get(item);
     if (!ret.is_empty()) return ret;
 
-    pfc::string8 filename;
-    filename.add_filename(item->get_path());
-    if (filename.has_prefix("\\file://")) {
-      filename.remove_chars(0, 8);
-
-      if (filename.is_empty()) {
-        throw exception_album_art_not_found();
-      }
+    pfc::string8 filename = item->get_path();
+    if (filename.startsWith("file")) {
+      filename = filesystem::g_get_native_path(filename);
     } else {
       throw exception_album_art_not_found();
     }

@@ -1,7 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <list>
 
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
@@ -1242,7 +1239,7 @@ class CMpvMenuChooser : public CDialogImpl<CMpvMenuChooser> {
 
   void OnAccept(UINT, int, CWindow) {
     if (m_list.GetSelectedCount() > 0) {
-      EndDialog(m_list.GetFirstSelected());
+      EndDialog(static_cast<int>(m_list.GetFirstSelected()));
     } else {
       EndDialog(-1);
     }

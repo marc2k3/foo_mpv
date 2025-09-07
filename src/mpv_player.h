@@ -1,17 +1,4 @@
 #pragma once
-#include "stdafx.h"
-// PCH ^
-#include <stddef.h>
-#include <stdint.h>
-
-#include <atomic>
-#include <condition_variable>
-#include <functional>
-#include <map>
-#include <queue>
-#include <sstream>
-#include <thread>
-
 #include "libmpv.h"
 #include "mpv_container.h"
 

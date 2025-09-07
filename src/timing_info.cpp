@@ -1,7 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-#include <atomic>
-
 #include "timing_info.h"
 
 namespace timing_info {

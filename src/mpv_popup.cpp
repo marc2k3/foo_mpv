@@ -1,9 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <../helpers/atl-misc.h>
-
-#include <sstream>
 
 #include "menu_utils.h"
 #include "mpv_container.h"
@@ -129,8 +124,7 @@ struct CMpvPopupWindow : public CWindowImpl<CMpvPopupWindow>,
       SetWindowLongPtr(GWLP_HWNDPARENT, (LONG_PTR)core_api::get_main_window());
     }
 
-    SetClassLong(get_wnd(), GCL_HICON,
-                 (LONG)ui_control::get()->get_main_icon());
+    SetIcon(ui_control::get()->get_main_icon());
 
     update_title();
 

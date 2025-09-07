@@ -1,8 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <thread>
-
 #include "mpv_player.h"
 #include "thumbnailer.h"
 #include "resource.h"

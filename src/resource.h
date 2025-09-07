@@ -8,7 +8,6 @@
 #define IDD_MPV_PREFS2                  109
 #define IDD_MPV_PREFS3                  110
 #define IDD_MPV_PREFS4                  111
-#define IDI_SCROLL                      115
 #define IDD_DIALOG_MENUCHOOSER          116
 #define IDI_ICON1                       119
 #define IDC_BUTTON_BG                   1001

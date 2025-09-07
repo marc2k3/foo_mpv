@@ -1,7 +1,4 @@
 #pragma once
-#include "stdafx.h"
-// PCH ^
-
 #include "columns_ui-sdk/ui_extension.h"
 #include "../helpers/atl-misc.h"
 

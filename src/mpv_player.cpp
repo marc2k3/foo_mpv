@@ -1,15 +1,5 @@
 #include "stdafx.h"
-// PCH ^
-#include <algorithm>
-#include <iomanip>
-#include <mutex>
-#include <nlohmann/json.hpp>
-#include <set>
-#include <thread>
 
-#include "../helpers/VolumeMap.h"
-#include "../helpers/atl-misc.h"
-#include "../helpers/win32_misc.h"
 #include "artwork_protocol.h"
 #include "menu_utils.h"
 #include "mpv_player.h"
@@ -293,9 +283,7 @@ void mpv_player::add_menu_items(uie::menu_hook_impl& menu_hook) {
               }
             }));
       }
-      menu_hook.add_node(
-          new menu_utils::menu_node_popup("Profile", profile_children));
-
+      menu_hook.add_node(new menu_utils::menu_node_popup("Profile", profile_children));
       menu_hook.add_node(new uie::menu_node_separator_t());
     }
 
@@ -564,7 +552,7 @@ bool mpv_player::mpv_init() {
       pfc::string_formatter osc_path = core_api::get_my_full_path();
       osc_path.truncate(osc_path.scan_filename());
       osc_path << "mpv\\osc.lua";
-      osc_path.replace_char('\\', '/', 0);
+      osc_path.replace_char('\\', '/');
       set_option_string("scripts", osc_path.c_str());
     }
 
@@ -886,29 +874,21 @@ void mpv_player::play(metadb_handle_ptr metadb, double time) {
   if (metadb.is_empty()) return;
   if (!mpv_handle && !mpv_init()) return;
 
-  pfc::string8 filename;
-  filename.add_filename(metadb->get_path());
+  pfc::string8 filename = metadb->get_path();
 
   apply_seek_offset = false;
   bool play_this = false;
   if (enabled) {
-    if (filename.has_prefix("\\file://")) {
+    if (filename.startsWith("file")) {
       if (test_video_pattern(metadb)) {
         play_this = true;
-        filename.replace_string("\\file://", "");
+        filename = filesystem::g_get_native_path(filename);
       }
-    } else if (cfg_foo_youtube && filename.has_prefix("\\fy+")) {
+    } else if (cfg_ytdl_any || (cfg_foo_youtube && filename.startsWith("fy+"))) {
       if (cfg_remote_always_play || test_video_pattern(metadb)) {
         play_this = true;
         apply_seek_offset = true;
-        filename.replace_string("\\fy+", "ytdl://");
-      }
-    } else if (cfg_ytdl_any) {
-      if (cfg_remote_always_play || test_video_pattern(metadb)) {
-        play_this = true;
-        apply_seek_offset = true;
-        filename.replace_string("\\fy+", "\\");
-        filename.replace_string("\\", "ytdl://");
+        filename.replace_string("fy+", "ytdl://");
       }
     }
   }

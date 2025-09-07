@@ -1,10 +1,4 @@
 #include "stdafx.h"
-// PCH ^
-
-#include <../helpers/WindowPositionUtils.h>
-#include <../helpers/atl-misc.h>
-
-#include <sstream>
 
 #include "libmpv.h"
 #include "resource.h"
@@ -199,10 +193,9 @@ struct CThumbnailChooserWindow : public CDialogImpl<CThumbnailChooserWindow> {
         (int)min(seek_resolution,
                  max(0, (pos / metadb->get_length()) * seek_resolution)));
 
-    pfc::string8 filename;
-    filename.add_filename(metadb->get_path());
-    if (filename.has_prefix("\\file://")) {
-      filename.remove_chars(0, 8);
+    pfc::string8 filename = metadb->get_path();
+    if (filename.startsWith("file")) {
+      filename = filesystem::g_get_native_path(filename);
 
       double time_base_l = 0.0;
       if (metadb->get_subsong_index() > 1) {
