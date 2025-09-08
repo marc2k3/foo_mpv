@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define VERSION_NO "0.6.11-beta"
+#define VERSION_NO "0.6.12-beta"
 
 const char* about =
     "Copyright (c) sammoth, 2020\n"
