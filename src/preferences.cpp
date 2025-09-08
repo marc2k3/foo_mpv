@@ -501,6 +501,7 @@ class CMpvPlayerPreferences : public CDialogImpl<CMpvPlayerPreferences>,
   CBrush button_brush;
   HBRUSH on_color_button(HDC wp, HWND lp);
   bool dirty = false;
+  fb2k::CCoreDarkModeHooks hooks;
 
   void set_controls_enabled();
 
@@ -577,6 +578,7 @@ BOOL CMpvPlayerPreferences::OnInitDialog(CWindow, LPARAM) {
   set_controls_enabled();
 
   dirty = false;
+  hooks.AddDialogWithControls(m_hWnd);
 
   return FALSE;
 }
@@ -610,7 +612,7 @@ void CMpvPlayerPreferences::OnScroll(UINT, int, CWindow) {
 }
 
 t_uint32 CMpvPlayerPreferences::get_state() {
-  t_uint32 state = preferences_state::resettable;
+  t_uint32 state = preferences_state::resettable | preferences_state::dark_mode_supported;
   if (HasChanged()) state |= preferences_state::changed;
   return state;
 }
@@ -729,6 +731,7 @@ class CMpvThumbnailPreferences : public CDialogImpl<CMpvThumbnailPreferences>,
   bool HasChanged();
   void OnChanged();
   bool dirty = false;
+  fb2k::CCoreDarkModeHooks hooks;
 
   void set_controls_enabled();
 
@@ -799,6 +802,7 @@ BOOL CMpvThumbnailPreferences::OnInitDialog(CWindow, LPARAM) {
   set_controls_enabled();
 
   dirty = false;
+  hooks.AddDialogWithControls(m_hWnd);
 
   return FALSE;
 }
@@ -814,7 +818,7 @@ void CMpvThumbnailPreferences::OnScroll(UINT, int, CWindow) {
 }
 
 t_uint32 CMpvThumbnailPreferences::get_state() {
-  t_uint32 state = preferences_state::resettable;
+  t_uint32 state = preferences_state::resettable | preferences_state::dark_mode_supported;
   if (HasChanged()) state |= preferences_state::changed;
   return state;
 }
@@ -933,6 +937,7 @@ class CMpvOscPreferences : public CDialogImpl<CMpvOscPreferences>,
   bool HasChanged();
   void OnChanged();
   bool dirty = false;
+  fb2k::CCoreDarkModeHooks hooks;
 
   const preferences_page_callback::ptr m_callback;
 
@@ -1002,6 +1007,7 @@ BOOL CMpvOscPreferences::OnInitDialog(CWindow, LPARAM) {
   slider.SetPos(cfg_osc_deadzone);
 
   dirty = false;
+  hooks.AddDialogWithControls(m_hWnd);
 
   return FALSE;
 }
@@ -1017,7 +1023,7 @@ void CMpvOscPreferences::OnScroll(UINT, int, CWindow) {
 }
 
 t_uint32 CMpvOscPreferences::get_state() {
-  t_uint32 state = preferences_state::resettable;
+  t_uint32 state = preferences_state::resettable | preferences_state::dark_mode_supported;
   if (HasChanged()) state |= preferences_state::changed;
   return state;
 }
@@ -1099,6 +1105,7 @@ class CMpvConfPreferences : public CDialogImpl<CMpvConfPreferences>,
   bool HasChanged();
   void OnChanged();
   bool dirty = false;
+  fb2k::CCoreDarkModeHooks hooks;
 
   const preferences_page_callback::ptr m_callback;
 
@@ -1141,6 +1148,7 @@ BOOL CMpvConfPreferences::OnInitDialog(CWindow, LPARAM) {
   uSetWindowText(edit, contents.c_str());
 
   dirty = false;
+  hooks.AddDialogWithControls(m_hWnd);
 
   return FALSE;
 }
@@ -1160,7 +1168,7 @@ void CMpvConfPreferences::OnEditChange(UINT, int, CWindow) {
 }
 
 t_uint32 CMpvConfPreferences::get_state() {
-  t_uint32 state = preferences_state::resettable;
+  t_uint32 state = preferences_state::resettable | preferences_state::dark_mode_supported;
   if (HasChanged()) state |= preferences_state::changed;
   return state;
 }
@@ -1223,6 +1231,7 @@ class CMpvMenuChooser : public CDialogImpl<CMpvMenuChooser> {
  private:
   std::vector<menu_utils::menu_entry>& items;
   CListControlSimple m_list;
+  fb2k::CCoreDarkModeHooks hooks;
 
   BOOL OnInitDialog(CWindow, LPARAM) {
     m_list.CreateInDialog(*this, IDC_LIST_MENU);
@@ -1234,6 +1243,7 @@ class CMpvMenuChooser : public CDialogImpl<CMpvMenuChooser> {
       m_list.SetItemText(i, 0, items[i].name);
     }
 
+    hooks.AddDialogWithControls(m_hWnd);
     return FALSE;
   }
 
@@ -1279,6 +1289,7 @@ class CMpvInputPreferences : public CDialogImpl<CMpvInputPreferences>,
   bool HasChanged();
   void OnChanged();
   bool dirty = false;
+  fb2k::CCoreDarkModeHooks hooks;
 
   std::list<pfc::string8> context_commands;
 
@@ -1305,7 +1316,7 @@ void CMpvInputPreferences::OnContextCmds(UINT, int, CWindow) {
     pfc::string8 new_row("\r\n");
     new_row << "<key> script-message foobar context " << items[idx].name;
     HWND editbox = uGetDlgItem(IDC_EDIT2);
-    int left, right;
+    int left{}, right{};
     int len = ::GetWindowTextLength(editbox);
     SendMessage(editbox, EM_GETSEL, (WPARAM)&left, (LPARAM)&right);
     SendMessage(editbox, EM_SETSEL, len, len);
@@ -1392,6 +1403,7 @@ BOOL CMpvInputPreferences::OnInitDialog(CWindow, LPARAM) {
   uSetWindowText(edit, contents.c_str());
 
   dirty = false;
+  hooks.AddDialogWithControls(m_hWnd);
 
   return FALSE;
 }
@@ -1402,7 +1414,7 @@ void CMpvInputPreferences::OnEditChange(UINT, int, CWindow) {
 }
 
 t_uint32 CMpvInputPreferences::get_state() {
-  t_uint32 state = preferences_state::resettable;
+  t_uint32 state = preferences_state::resettable | preferences_state::dark_mode_supported;
   if (HasChanged()) state |= preferences_state::changed;
   return state;
 }

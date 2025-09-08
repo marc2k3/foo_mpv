@@ -22,9 +22,10 @@
 
 #include <nlohmann/json.hpp>
 
-#include "foobar2000-sdk/foobar2000/helpers/foobar2000+atl.h"
+#include <helpers/foobar2000+atl.h>
 #include <helpers/atl-misc.h>
 #include <helpers/BumpableElem.h>
 #include <helpers/VolumeMap.h>
 #include <helpers/win32_misc.h>
 #include <helpers/WindowPositionUtils.h>
+#include <SDK/coreDarkMode.h>
