@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <memory>
 #include <optional>
-#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -168,7 +167,6 @@ namespace ui_extension = uie;
 #endif
 
 #include "font_utils.h"
-#include "panel_utils.h"
 
 namespace ui_extension = uie;
 namespace columns_ui = cui;

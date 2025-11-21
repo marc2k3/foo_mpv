@@ -67,9 +67,6 @@
     <ClInclude Include="dwrite_utils.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="panel_utils.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32_helpers.cpp">
@@ -101,9 +98,6 @@
       <Filter>CUI</Filter>
     </ClCompile>
     <ClCompile Include="dwrite_utils.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="panel_utils.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
   </ItemGroup>
